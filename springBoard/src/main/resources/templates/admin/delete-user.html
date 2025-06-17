@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 layout:decorate="~{layout/layout}"
+>
+<head>
+<meta charset="UTF-8">
+<title>ユーザー削除確認画面</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<h1>ユーザー削除確認画面</h1>
+	<h2>以下のユーザーを削除します。本当によろしいですか。</h2>
+	<span> 
+	よろしくないなら --->
+	<a th:href="@{/admin/show_users}">
+				ユーザー一覧に戻る
+	</a>
+	</span>
+	
+	<div class="ten-height-box"></div>
+	
+	<form th:action="@{/admin/exe_delete_user}" method="post"
+			  th:object="${boardUserForm}">
+		<input type="hidden" th:field="*{username}">
+		<table>
+			<tr>
+				<th>名前 :</th>
+				<td th:text="*{username}">名前</td>
+			</tr>
+			<tr>
+				<th>権限 :</th>
+				<td th:text="*{authority}">権限</td>
+			</tr>
+		</table>
+		<input type="submit" value="はい" class="submit-button">
+	</form>
+	<br>
+</div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+@chrset "UTF-8";
+
+html {
+	background-color: #aba89f;
+	color:#1a1a1a;
+	font-size: 20px;
+}
+
+header{
+	margin-bottom: 15px;
+	padding:10px;
+	background: #000000;
+	color: #ffffff;
+}
+
+footer{
+	margin-top: 15px;
+	margin-bottom: 0;
+	padding:5px;
+	background: #000000;
+	color: #ffffff;
+}
+
+hr{
+	margin: 5px 20px 0 20px;
+}
+
+/* 行間調整用 */
+div .ten-height-box{
+	height: 10px;
+}
+/* ボタン、submit 系*/
+button{
+	margin:0 5px;
+	font-size: 25px;
+	width: 200px;
+	padding: 10px;
+}
+
+.logout-button{
+	margin:0 5px;
+	font-size: 25px;
+	width: 200px;
+	padding: 10px;
+}
+
+.submit-button{
+	font-size: 15px;
+	margin-top: 10px;
+	width: 100px;
+	padding: 10px;
+}
+
+/* aタグの設定 */
+a:link {
+ color: #0000EE;
+ text-decoration: underline;
+}
+
+a:visited {
+ color: #0000EE;
+ text-decoration: underline;
+}
+
+a:hover {
+	color: rebeccapurple;
+	text-decoration:underline;
+}
+
+a:active {
+ color: #FF0000;
+ text-decoration: underline;
+}
+
+.header-menu{
+	display: flex;
+}
+
+/*リダイレクト等のメッセージ用*/
+.message{
+	margin:10px 0;
+	padding: 5px;
+	color:red;
+	background-color: #e8e6df;
+	border:2px solid ;
+	border-color: gray;
+}
+
+/*スレッド一覧*/
+.thread-link{
+	font-size: 24px;
+	margin:10px 0;
+	padding: 5px;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+/* ページング */
+.page-menu{
+	text-align: center;
+	margin:10px ;
+}
+.page-element{
+	margin:0 10px;
+}
+
+/* 投稿内容 */
+.post-text{
+	font-size: 24px;
+}

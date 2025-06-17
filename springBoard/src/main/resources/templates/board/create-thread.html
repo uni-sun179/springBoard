@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 layout:decorate="~{layout/layout}"
+>
+<head>
+<meta charset="UTF-8">
+<title>スレッド作成画面</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<h1>スレッド作成画面</h1>
+	<form th:action="@{/board/save_thread}" method="post"
+			  th:object="${threadForm}">
+		<table>
+			<tr>
+				<th>スレッド名:</th>
+				<td>
+					<input type="text" th:field="*{threadName}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					スレッドの説明:
+				</th>
+				<td>
+					いらんやろそんなん()
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="作成">
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" 
+		 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+		 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 layout:decorate="~{layout/layout}"
+>
+<head>
+<meta charset="UTF-8">
+<title>スレッド</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+<div th:each="post , s : ${posts}" th:object="${post}">
+	<span>[[ ${s.count} ]]番目の投稿</span>
+	<span>投稿者ID:[[ *{username} ]]</span>
+	<div th:text="*{postText}" class="post-text">post_text</div>
+	<hr>
+</div>
+
+<a th:href="@{/board/create_post/{threadId}(threadId=${threadId})}">投稿してみる</a>
+<div sec:authorize="hasAuthority('ADMIN')">
+	<a th:href="@{/admin/delete_thread/{threadId}(threadId=${threadId})}">
+		スレッドを消す
+	</a>
+</div>
+</body>
+</html>

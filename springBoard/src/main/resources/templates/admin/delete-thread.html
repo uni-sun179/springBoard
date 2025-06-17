@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 layout:decorate="~{layout/layout}"
+>
+<head>
+<meta charset="UTF-8">
+<title>スレッド削除確認画面</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<h1>スレッド削除確認画面</h1>
+	<h2>以下のスレッドを削除します。本当に削除しますか。</h2>
+	
+	<span> 
+	よろしくないなら --->
+	<a th:href="@{/admin/show_users}">
+				ユーザー一覧に戻る
+	</a>
+	</span>
+		
+	<div class="ten-height-box"></div>
+	
+	<form th:action="@{/admin/exe_delete_thread}" method="post" th:object="${threadForm}">
+		<input type="hidden" th:field="*{id}">
+		<table>
+			<tr>
+				<th>スレッドID:</th>
+				<td th:text="*{id}">スレッドID</td>
+			</tr>
+			
+			<tr>
+				<th>スレッド名:</th>
+				<td th:text="*{threadName}">スレッド名</td>
+			</tr>
+		</table>
+		<input type="submit" value="はい" class="submit-button">
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.example.demo.repository.ThreadMapper">
+	<resultMap id="ThreadResultMap" type="com.example.demo.entity.Thread">
+		<id property="id" column="id" />
+		<result property="threadName" column="thread_name" />
+		<result property="createdAt" column="created_at" />
+	</resultMap>
+	
+	<!-- 一定の件数のスレッドを取得 -->
+	<select id="selectThread" resultType="com.example.demo.entity.Thread" 
+	parameterType="int" resultMap="ThreadResultMap">
+		SELECT * FROM threads ORDER BY id desc LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<!-- スレッドの件数を取得 -->
+	<select id="countThread" resultType="int">
+		SELECT COUNT(*) FROM threads
+	</select>
+	
+	<select id="selectThreadById" resultType="com.example.demo.entity.Thread"
+	parameterType="int" resultMap="ThreadResultMap">
+		SELECT * FROM threads WHERE id = #{id}
+	</select>
+	
+	<!-- スレッドの作成 -->
+	<insert id="insertThread">
+		INSERT INTO threads(thread_name,created_at) 
+		values(#{threadName},CURRENT_TIMESTAMP)
+	</insert>
+	
+	<!-- スレッドの削除 -->
+	<delete id="deleteThread">
+		DELETE FROM threads where id = #{id}
+	</delete>
+</mapper>

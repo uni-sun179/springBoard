@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+		 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 layout:decorate="~{layout/layout}"
+>
+<head>
+<meta charset="UTF-8">
+<title>投稿作成画面</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+<form th:action="@{/board/save_post}" method="post"
+		  th:object="${postForm}">
+<!--/* 隠しパラメータのスレッドID  */-->
+<input type="hidden" th:field="*{threadId}" th:value="${threadId}">
+<table>
+<tr>
+	<th>スレッドID:</th>
+	<td th:text="*{threadId}">[[*{threadId}]]</td>
+</tr>
+
+<!--/* ユーザーIDはコントローラ側で設定 */-->
+<tr>
+	<th>あなたのID:</th>
+	<td th:text="${#authentication.principal.id}"></td>
+</tr>
+
+<tr>
+	<th>投稿内容:</th>
+	<td>
+		<textarea rows="5" cols="30" th:field="*{postText}"></textarea>
+	</td>
+</tr>
+
+<span th:if="${#fields.hasErrors('postText')}"
+		  th:errors="*{postText}" class="message">error</span>
+</table>
+
+<input type="submit" value="投稿しゅる">
+</form>
+</div>
+</body>
+</html>

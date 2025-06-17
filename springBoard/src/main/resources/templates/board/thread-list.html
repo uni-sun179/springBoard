@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" 
+		 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+		 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 layout:decorate="~{layout/layout}"
+> 
+<head>
+<meta charset="UTF-8">
+<title>スレッドリスト</title>
+</head>
+<body>
+	<div layout:fragment="content">
+	
+	<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/board/create_thread}">
+		スレッドを建てる		
+	</a>
+	
+	<div>
+		<h1>スレッド一覧</h1>
+			<div th:each="thread:${threads}">
+				<a th:href="@{/board/thread/{id}(id=${thread.id})}">
+					<div th:text="${thread.threadName}"  class="thread-link">スレッド名</div>
+				</a>
+			</div>
+			<hr>
+			
+			<div class="page-menu">
+				
+				<th:block th:if="${currentPage} > 2">
+					<a th:href="@{/board/1}" th:text="1" class="page-element">1</a>	
+					...
+				</th:block>
+				
+				<th:block th:if="${currentPage} > 1">
+					
+					<a th:href="@{/board/{page}(page= ${currentPage} -1) }" 
+						th:text="${currentPage -1}" class="page-element">prev</a>
+						
+				</th:block>
+				
+				<span th:text="${currentPage}" class="page-element">ページ数</span>
+				
+				<th:block th:if="${currentPage} < ${totalPages}">
+					
+					<a th:href="@{/board/{page}(page= ${currentPage} +1) }" 
+						 th:text="${currentPage +1}" class="page-element">next</a>
+						 
+				</th:block>
+				
+				<!--  最後のページ か その一つ前のページでなければ 最後のページのリンクを表示 -->
+				<th:block th:if="${currentPage} < ${totalPages} 
+				and (${currentPage} != ${totalPages} and ${currentPage} != ${totalPages} -1)">
+					...
+					<a th:href="@{/board/{page}(page= ${totalPages})}" 
+						 th:text="${totalPages}" class="page-element">last</a>
+						 
+				</th:block>
+								
+			</div>
+		</div>
+</body>
+</html>

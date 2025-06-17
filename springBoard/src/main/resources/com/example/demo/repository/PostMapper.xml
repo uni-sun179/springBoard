@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.repository.PostMapper">
+
+<!-- 仮リザルトマップ -->
+	<resultMap id="PostResultMap" type="com.example.demo.entity.Post">
+		<id property="id" column="id" />
+		<result property="postText" column="post_text"/>
+		<result property="userId" column="user_id"/>
+		<result property="threadId" column="thread_id"/>
+		<result property="createdAt" column="created_at"/>
+	</resultMap>
+	
+	<resultMap id="ViewPostResultMap" type="com.example.demo.entity.ViewPost">
+		<id property="id" column="id" />
+		<result property="postText" column="post_text" />
+		<result property="username" column="username" />
+	</resultMap>
+	
+	<!-- 全スレッドの投稿を取得 -->
+	<select id="selectPostAll" resultType="com.example.demo.entity.Post"
+				resultMap="PostResultMap">
+		SELECT * FROM posts
+	</select>
+	
+	<!-- 特定のスレッドの投稿を取得 -->
+	
+	<select id="selectPostByThreadId" resultType="com.example.demo.entity.Post"
+				resultMap="PostResultMap">
+		SELECT * FROM posts where thread_id = #{thread_id}
+	</select>
+	
+	
+	<select id="selectPostWithUsernameByThreadId" resultType="com.example.demo.entity.ViewPost"
+				resultMap="ViewPostResultMap">
+		SELECT p.id , p.post_text ,u.username AS username
+		FROM posts p JOIN users u
+		ON p.user_id = u.id
+		WHERE thread_id = #{thread_id}
+	</select>
+	
+	<!--
+	<select id="selectPostByThreadId" resultType="com.example.demo.entity.Post"
+				resultMap="PostWithUserAndThreadResult">
+		SELECT p.id, p.post_text,
+		u.id AS user_id, u.username AS username,
+		t.id AS thread_id
+		FROM posts p
+		INNER JOIN users u 
+		ON p.user_id = u.id
+		INNER JOIN threads t 
+		ON p.thread_id = t.id
+		WHERE thread_id = 1
+		ORDER BY id;
+	</select>
+	-->
+	
+	<!-- 投稿の作成 -->
+	<insert id="insertPost">
+		INSERT INTO posts (post_text, user_id, thread_id,created_at)
+		VALUES(#{postText},#{userId},#{threadId},CURRENT_TIMESTAMP)
+	</insert>
+	
+	<!-- 投稿の削除 -->
+	<delete id="deletePost">
+		DELETE FROM posts WHERE id = #{id}
+	</delete>
+	
+</mapper>

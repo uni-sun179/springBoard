@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/style.css">
+<title>ベースレイアウト</title>
+</head>
+<body>
+	<header>
+		<a th:href="@{/board/1}"><h1 id="app-title">Board Header</h1></a>
+		
+		<div sec:authorize="isAuthenticated()">
+			<p><span sec:authentication="name"></span>さん、ログイン中です。</p>
+			
+			<div class="header-menu">
+				<form th:action="@{/logout}" method="post">
+					<input type="submit" value="ログアウト" class="logout-button">
+				</form>
+				
+				<th:block sec:authorize="hasAuthority('ADMIN')">
+					<a th:href="@{/admin/menu}">
+						<button>管理者メニュー</button>
+					</a>
+				</th:block>
+			</div>
+		</div>
+		
+		<div sec:authorize="!isAuthenticated()">
+			<a th:href="@{/board/create_user}"><button>会員登録</button></a>
+			<a  th:href="@{/login}"><button>ログイン画面へ</button></a>
+		</div>
+	</header>
+	<div th:if="${param.logout}">
+		<p class="message">ログアウトしました</p>
+	</div>
+	
+	<div class="message" th:if="${message}" th:text="${message}">
+		ここにメッセージ
+	</div>
+	
+	<div layout:fragment="content">内容がないよう</div>
+		
+		<footer>
+			<h1>ここはフーター</h1>
+		</footer>
+</body>
+</html>
