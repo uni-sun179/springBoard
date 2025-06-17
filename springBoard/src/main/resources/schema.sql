@@ -41,8 +41,8 @@ create table posts(
 	--投稿されたスレッドのID
 	thread_id int,
 	--作成日時
-	created_at timestamp without time zone,
+	created_at timestamp without time zone
 	--外部キーの設定
 	--foreign key(user_id) references users(id),
-	foreign key(thread_id) references threads(id)
+	--foreign key(thread_id) references threads(id)
 );
