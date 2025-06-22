@@ -73,8 +73,9 @@ public class BoardController {
 	@GetMapping("/thread/{id}")
 	public String showThread(@PathVariable Integer id,Model model) {
 		List<ViewPost> posts = postService.findByThreadIdViewPost(id);
+		Thread thread = threadService.findByIdThread(id);
 		
-		model.addAttribute("threadId", id);
+		model.addAttribute("thread", thread);
 		model.addAttribute("posts", posts);
 		
 		return "board/thread";
