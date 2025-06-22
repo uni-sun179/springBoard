@@ -10,17 +10,19 @@
 </head>
 <body>
 <div layout:fragment="content">
+<h1 th:text=${thread.threadName}></h1>
+<hr>
 
 <div th:each="post , s : ${posts}" th:object="${post}">
 	<span>[[ ${s.count} ]]番目の投稿</span>
-	<span>投稿者ID:[[ *{username} ]]</span>
+	<span>投稿者:[[ *{username} ]]</span>
 	<div th:text="*{postText}" class="post-text">post_text</div>
 	<hr>
 </div>
 
-<a th:href="@{/board/create_post/{threadId}(threadId=${threadId})}">投稿してみる</a>
+<a th:href="@{/board/create_post/{threadId}(threadId=${thread.id})}">投稿してみる</a>
 <div sec:authorize="hasAuthority('ADMIN')">
-	<a th:href="@{/admin/delete_thread/{threadId}(threadId=${threadId})}">
+	<a th:href="@{/admin/delete_thread/{threadId}(threadId=${thread.id})}">
 		スレッドを消す
 	</a>
 </div>
